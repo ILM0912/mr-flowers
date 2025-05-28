@@ -1,0 +1,57 @@
+.container {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 24px;
+    border-radius: 16px;
+    width: 70vw;
+    height: 70vw;
+    max-width: 300px;
+    max-height: 300px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 30px;
+}
+
+.modal__icon {
+    width: 50%;
+    height: 50%;
+    margin: 0 auto;
+}
+
+.modal__icon_loading {
+    animation: rotate 3s linear infinite;
+}
+
+.modal__message {
+    font-size: 18px;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 600px) {
+    .modal__message {
+        font-size: 14px;
+    }
+
+    .modal {
+        gap: 20px;
+    }
+}

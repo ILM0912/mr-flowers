@@ -1,0 +1,32 @@
+.container {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.rating__icon {
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+}
+
+.rating {
+    height: 20px;
+    cursor: default;
+    display: inline-block;
+}
+
+.rating_editable {
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .rating {
+        height: 16px;
+    }
+
+    .rating__icon {
+        width: 16px;
+        height: 16px;
+    }
+}

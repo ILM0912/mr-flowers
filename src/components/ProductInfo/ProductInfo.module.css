@@ -1,0 +1,135 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.message {
+    margin-top: 30px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: var(--disable);
+    font-size: 20px;
+}
+
+.message__icon {
+    width: 30%;
+    height: 30%;
+    margin: 0 auto 10px;
+}
+
+.message__icon_loading {
+    animation: rotate 3s linear infinite;
+}
+
+.product {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.product__image {
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product__details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 15px;
+    color: var(--dark-color);
+    font-size: 24px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.product__details__rating {
+    display: inline-flex;
+    margin: 0 auto;
+    align-items: center;
+    gap: 5px;
+}
+
+.product__details__rating__icon {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+.product__details__name {
+    font-weight: bold;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    padding: 0 50px;
+    font-size: 20px;
+    gap: 20px;
+    width: 100%;
+    color: var(--dark-color);
+    justify-content: left;
+}
+
+.description__title {
+    font-size: 24px;
+    font-family: serif;
+    font-style: italic;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 90%;
+    }
+
+    .product {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .product__details {
+        font-size: 21px;
+        gap: 10px;
+    }
+
+    .product__details__rating__icon {
+        width: 21px;
+        height: 21px;
+    }
+
+    .description {
+        font-size: 16px;
+        max-width: 100%;
+        padding: 0 10px;
+        gap: 10px;
+    }
+
+    .description__title {
+        font-size: 21px;
+    }
+}

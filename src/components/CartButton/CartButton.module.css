@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.add-button {
+    width: 100%;
+    max-width: 120px;
+    padding: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+}
+
+.add-button:hover {
+    background-color: var(--dark-color);
+}
+
+@media (max-width: 600px) {
+    .add-button {
+        font-size: 14px;
+        padding: 6px;
+    }
+}

@@ -1,0 +1,151 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    max-width: 700px;
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.title {
+    font-size: 24px;
+    font-style: italic;
+    font-family: serif;
+    color: var(--dark-color);
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0;
+    list-style: none;
+}
+
+.list__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    color: var(--dark-color);
+}
+
+.list__item__radio {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    cursor: pointer;
+    overflow: hidden;
+    accent-color: var(--primary-color);
+}
+
+.list__item__remove {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.list__item__remove:hover {
+    color: red;
+}
+
+.input-wrapper {
+    display: flex;
+    gap: 10px;
+}
+
+.input-wrapper__input,
+.input-wrapper__button {
+    font-size: 16px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    outline: none;
+}
+
+.input-wrapper__input {
+    border: 1px solid #ccc;
+}
+
+.input-wrapper__input:focus {
+    border-color: var(--dark-color);
+}
+
+.input-wrapper__button {
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+}
+
+.input-wrapper__button:hover {
+    background-color: var(--dark-color);
+}
+
+.input-wrapper__button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.actions__save,
+.actions__cancel {
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.actions__save {
+    background-color: var(--primary-color);
+    color: white;
+    border: 0;
+}
+
+.actions__save:hover {
+    background-color: var(--dark-color);
+}
+
+.actions__save:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.actions__cancel {
+    display: flex;
+    background-color: transparent;
+    color: red;
+    align-items: center;
+}
+
+@media (max-width: 600px) {
+    .title {
+        font-size: 21px;
+    }
+
+    .list__item {
+        font-size: 14px;
+    }
+
+    .input-wrapper__input,
+    .input-wrapper__button {
+        font-size: 13px;
+        padding: 5px 10px;
+    }
+
+    .list__item__remove {
+        width: 14px;
+        height: 14px;
+    }
+
+    .actions__save,
+    .actions__cancel {
+        font-size: 14px;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+}

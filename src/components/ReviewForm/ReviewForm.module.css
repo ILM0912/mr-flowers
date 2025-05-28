@@ -1,0 +1,130 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-self: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form__title {
+    font-size: 24px;
+    font-family: serif;
+    font-style: italic;
+    align-self: flex-start;
+    color: var(--dark-color);
+}
+
+.form__section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form__section_rating {
+    flex-direction: row;
+    gap: 20px;
+}
+
+.form__section__label {
+    font-size: 20px;
+    color: var(--dark-color);
+}
+
+.form__section__textarea {
+    width: 100%;
+    min-height: 100px;
+    resize: vertical;
+    padding: 15px;
+    font-size: 16px;
+    border: 1px solid var(--primary-color);
+    border-radius: 20px;
+    color: var(--dark-color);
+    font-family: inherit;
+}
+
+.form__actions {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.form__actions__submit {
+    padding: 10px 16px;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.form__actions__submit:hover {
+    background-color: var(--dark-color);
+}
+
+.form__actions__back {
+    font-size: 16px;
+    color: var(--disable);
+    cursor: pointer;
+    user-select: none;
+}
+
+.button {
+    padding: 10px 16px;
+    background-color: transparent;
+    color: var(--primary-color);
+    font-size: 16px;
+    border: 1px solid var(--primary-color);
+    border-radius: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.button:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+@media (max-width: 600px) {
+    .form__section__textarea {
+        font-size: 14px;
+        padding: 8px;
+        border-radius: 10px;
+    }
+
+    .form {
+        gap: 10px;
+    }
+
+    .form__section {
+        gap: 5px;
+    }
+
+    .form__section_rating {
+        gap: 20px;
+    }
+
+    .form__actions__submit,
+    .button {
+        font-size: 14px;
+        padding: 8px 14px;
+        border-radius: 10px;
+    }
+
+    .form__section__label {
+        font-size: 16px;
+    }
+
+    .form__actions__back {
+        font-size: 14px;
+    }
+
+    .form__title {
+        font-size: 21px;
+    }
+}

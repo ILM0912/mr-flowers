@@ -1,0 +1,139 @@
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.top {
+    position: sticky;
+    width: calc(70% + 30px);
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 95.45px;
+    border-radius: 10px;
+    z-index: 1000;
+    background-color: white;
+}
+
+.top__title {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+    margin: 20px 0;
+    font-style: italic;
+    font-family: serif;
+    color: var(--dark-color);
+}
+
+.top__input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid var(--dark-color);
+    border-radius: 10px;
+}
+
+.top__controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.top__controls__select {
+    width: 45%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid var(--dark-color);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.top__controls__reset {
+    background: none;
+    border: none;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.top__controls__reset_enabled {
+    color: var(--reset);
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
+
+.top__controls__reset_enabled:hover {
+    transform: scale(1.1);
+    color: var(--reset-hover);
+}
+
+.top__controls__reset_disabled {
+    color: var(--disable);
+}
+
+.top__controls__reset__icon {
+    width: 32px;
+    height: 32px;
+    fill: currentColor;
+}
+
+.result {
+    text-align: center;
+    margin-top: 20px;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.result__message__icon {
+    width: 30%;
+    height: 30%;
+    margin: 0 auto 10px;
+}
+
+.result__message {
+    color: var(--disable);
+    font-size: 20px;
+}
+
+.result__message__icon_loading {
+    text-align: center;
+    animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 600px) {
+    .top {
+        top: 59px;
+        width: calc(90% + 15px);
+        border-radius: 5px;
+    }
+
+    .top__input,
+    .top__controls__select {
+        padding: 3px;
+        font-size: 12px;
+    }
+
+    .top__controls__reset__icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    .result {
+        width: 90%;
+    }
+
+    .top__title {
+        font-size: 21px;
+    }
+}

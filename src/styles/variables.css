@@ -1,0 +1,10 @@
+:root {
+    --primary-color: #247696;
+    --hover: #dceff7;
+    --reset: #ff928c;
+    --reset-hover: #ff0000;
+    --dark-color: #154557;
+    --disable: #555555;
+    --submit: #41c76f;
+    --submit-hover: #2a8f4d;
+}
