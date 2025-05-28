@@ -6,6 +6,7 @@ import OrderForm from '../OrderForm';
 import style from './CartContent.module.css';
 import { formatPrice } from '../../utils';
 import { ReactComponent as EmptyIcon } from '../../../src/images/empty.svg';
+import { setOrderItems } from '../../store/OrderSlice';
 
 const CartContent = () => {
     const { items, loaded } : CartState = useSelector((state: any) => state.cart);
@@ -39,6 +40,7 @@ const CartContent = () => {
         } else {
             setSelectedIds(items.map(item => item.product.id));
         }
+        dispatch(setOrderItems(items.filter(item => selectedIds.includes(item.product.id))));
     };
 
     const handleRemove = (id: string) => {
@@ -47,9 +49,9 @@ const CartContent = () => {
     };
 
     const selectedItems = items.filter(item => selectedIds.includes(item.product.id));
-
+    dispatch(setOrderItems(items.filter(item => selectedIds.includes(item.product.id))));
     if (isOrdering) {
-        return <OrderForm items={selectedItems} onSubmit={handleSubmitOrder} onExit={() => setIsOrdering(false)}/>;
+        return <OrderForm onSubmit={handleSubmitOrder} onExit={() => setIsOrdering(false)}/>;
     }
 
     if (!loaded) return null;

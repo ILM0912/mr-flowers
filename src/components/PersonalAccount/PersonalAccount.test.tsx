@@ -15,10 +15,10 @@ jest.mock('../../../src/images/bonus.svg', () => ({
 jest.mock('../../store/AuthSlice', () => ({
   logoutUser: () => ({ type: 'LOGOUT_USER' }),
   refreshUser: (email: string) => ({ type: 'REFRESH_USER', payload: email }),
-}));
-
-jest.mock('../../api', () => ({
-  updateUserName: jest.fn(() => Promise.resolve()),
+  updateName: ({ email, name }: { email: string, name: string }) => ({
+    type: 'auth/updateName/fulfilled',
+    payload: { email, name },
+  }),
 }));
 
 const mockStore = configureStore([]);
@@ -68,7 +68,7 @@ describe('PersonalAccount', () => {
 
     await waitFor(() => {
       const actions = store.getActions();
-      expect(actions).toContainEqual({ type: 'REFRESH_USER', payload: user.email });
+      expect(actions).toContainEqual({ type: 'auth/updateName/fulfilled', payload: {email: user.email, name: "Новое Имя"} });
     });
   });
 

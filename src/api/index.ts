@@ -84,7 +84,6 @@ export const updateUserCart = async (email: string, cart: CartItemType[]) => {
 
 export const fetchUserInfo = async (email: string) => {
     const res = await fetch(`${API_URL}/user?email=${encodeURIComponent(email)}`);
-    console.log(res);
     if (!res.ok) throw new Error("Не удалось загрузить данные пользователя");
     return res.json();
 }
@@ -139,7 +138,7 @@ export const getDetailedProduct = async (id: string) => {
 };
 
 
-export const checkPromo = async (email: string, promoCode: string) => {
+export const checkPromoCode = async (email: string, promoCode: string) => {
     try {
         const res = await fetch(`${API_URL}/promo/check`, {
             method: 'POST',
@@ -163,7 +162,7 @@ export const checkPromo = async (email: string, promoCode: string) => {
     }
 };
 
-export const createOrder = async (
+export const createOrderRequest = async (
     order: OrderCreateRequestType
 ) => {
     try {

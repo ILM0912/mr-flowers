@@ -28,9 +28,6 @@ const ReviewForm = ({ productId }: ReviewFormProps) => {
 
         sendReview(reviewData)
             .then(() => {
-                setIsFormVisible(false);
-                setText("");
-                setRating(5);
                 window.location.reload();
             })
             .catch((error) => {

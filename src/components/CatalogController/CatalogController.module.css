@@ -121,7 +121,7 @@
     .top__input,
     .top__controls__select {
         padding: 3px;
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .top__controls__reset__icon {
@@ -135,5 +135,13 @@
 
     .top__title {
         font-size: 21px;
+    }
+}
+
+@media (max-width: 374px) {
+    .top__input,
+    .top__controls__select {
+        padding: 3px;
+        font-size: 12px;
     }
 }

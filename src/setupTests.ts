@@ -10,6 +10,5 @@ if (typeof global.TextDecoder === "undefined") {
   (global as any).TextDecoder = NodeTextDecoder;
 }
 
-global.console.log = () => {};
 global.console.warn = () => {};
 global.console.error = () => {};

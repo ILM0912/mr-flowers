@@ -79,23 +79,6 @@ describe('ReviewForm', () => {
     });
   });
 
-  it('после успешной отправки форма скрывается', async () => {
-    sendReviewMock.mockResolvedValue(undefined);
-
-    renderComponent();
-    fireEvent.click(screen.getByText('Оставить отзыв'));
-
-    const textarea = screen.getByPlaceholderText('Напишите, что вам понравилось или не понравилось');
-    fireEvent.change(textarea, { target: { value: 'Отзыв' } });
-
-    fireEvent.click(screen.getByText('Отправить'));
-
-    await waitFor(() => {
-      expect(screen.queryByText('Оставьте отзыв:')).not.toBeInTheDocument();
-      expect(textarea).not.toBeInTheDocument();
-    });
-  });
-
   it('если sendReview возвращает ошибку, форма скрывается', async () => {
     sendReviewMock.mockRejectedValue(new Error('Ошибка сети'));
 

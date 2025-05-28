@@ -1,81 +1,33 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
-import { refreshUser } from '../../store/AuthSlice';
-import { CartItemType, OrderCreateRequestType } from 'src/types';
+import { OrderCreateRequestType } from '../../types';
 import { formatPrice } from '../../utils';
 import { IMaskInput } from 'react-imask';
 import style from './OrderForm.module.css';
-import { checkPromo, createOrder } from '../../api';
+import { checkPromo, createOrder } from '../../store/OrderSlice'; 
 import OrderModal from '../OrderModal/OrderModal';
 
 interface OrderFormProps {
-    items: CartItemType[];
     onExit: () => void;
     onSubmit: () => void;
 }
 
-const OrderForm = ({ items, onExit, onSubmit }: OrderFormProps) => {
-    const orderItems = useRef(items);
+const OrderForm = ({ onExit, onSubmit }: OrderFormProps) => {
+    const items = useSelector((state: RootState) => state.order.items);
+    const orderItems = useRef(items).current;
     const dispatch = useDispatch<AppDispatch>();
     const user = useSelector((state: RootState) => state.auth.user);
+    const { discount, promoMessage, status, promoError } = useSelector((state: RootState) => state.order);
 
     const [selectedAddressIndex, setSelectedAddressIndex] = useState<number | null>(null);
     const [customAddress, setCustomAddress] = useState('');
     const [useBonuses, setUseBonuses] = useState(false);
     const [promoCode, setPromoCode] = useState('');
-    const [discount, setDiscount] = useState(0);
     const [deliveryDate, setDeliveryDate] = useState('');
     const [deliveryTime, setDeliveryTime] = useState('');
     const [phone, setPhone] = useState('');
-    const [promoError, setPromoError] = useState('');
-    const [promoMessage, setPromoMessage] = useState('');
-
-    const [orderStatus, setOrderStatus] = useState<'loading' | 'success' | 'error' | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const handleSubmit = async () => {
-        setIsModalOpen(true);
-        setOrderStatus('loading');
-        const order: OrderCreateRequestType = {
-            items: orderItems.current,
-            deliveryAddress: deliveryAddress,
-            deliveryDate: deliveryDate,
-            deliveryTime: deliveryTime,
-            phone: phone,
-            bonusesToUse: bonusesToUse,
-            total: total,
-            finalTotal: adjustedTotal,
-            email: user?.email
-        }
-
-        createOrder(order)
-            .then(() => {
-                setOrderStatus('success');
-                onSubmit();
-            })
-            .catch((e) => {
-                setOrderStatus('error');
-            });
-    };
-
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-        onExit();
-    };
-
-    useEffect(() => {
-        if (user?.email) {
-            dispatch(refreshUser(user.email));
-        }
-
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        setDeliveryDate(tomorrow.toISOString().split('T')[0]);
-        if ((user?.defaultAddress || user?.defaultAddress === 0) && user?.address[user?.defaultAddress]) {
-            setSelectedAddressIndex(user.defaultAddress);
-        }
-    }, []);
 
     const [total, setTotal] = useState(0);
     const [bonusesToUse, setBonusesToUse] = useState(0);
@@ -84,12 +36,24 @@ const OrderForm = ({ items, onExit, onSubmit }: OrderFormProps) => {
     const [bonusesToAccrue, setBonusesToAccrue] = useState(0);
 
     useEffect(() => {
-        const totalSum = orderItems.current.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
-        const validDiscount = Math.min(Math.max(discount, 0), 100);
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        setDeliveryDate(tomorrow.toISOString().split('T')[0]);
 
-        let validBonuses = useBonuses && user
-            ? Math.min(Math.max(user.bonuses, 0), totalSum)
-            : 0;
+        if (user && user.defaultAddress !== null && user.address[user.defaultAddress]) {
+            setSelectedAddressIndex(user.defaultAddress);
+        }
+    }, [user]);
+
+    useEffect(() => {
+        const totalSum = orderItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+        let validDiscount = 0;
+        if (user) validDiscount = Math.min(Math.max(discount, 0), 100);
+        let validBonuses = 0;
+
+        if (useBonuses && user) {
+            validBonuses = Math.min(Math.max(user.bonuses, 0), totalSum);
+        }
 
         const afterBonuses = totalSum - validBonuses;
         const discountVal = Math.floor(afterBonuses * validDiscount / 100);
@@ -100,6 +64,7 @@ const OrderForm = ({ items, onExit, onSubmit }: OrderFormProps) => {
             validBonuses = validBonuses - 1;
         }
         const bonusesAccrual = Math.floor(newAdjustedTotal * 0.1);
+
         setTotal(totalSum);
         setBonusesToUse(validBonuses);
         setDiscountAmount(discountVal);
@@ -109,38 +74,45 @@ const OrderForm = ({ items, onExit, onSubmit }: OrderFormProps) => {
 
     const deliveryAddress = user && selectedAddressIndex !== null && selectedAddressIndex >= 0
         ? user.address[selectedAddressIndex]
-        : customAddress ? customAddress.trim() : '';
+        : customAddress.trim();
 
     const isAddressValid = deliveryAddress.trim().length >= 5;
+    const isPhoneValid = /^7\d{10}$/.test(phone);
+    const isOrderDisabled = !isAddressValid || !deliveryTime || !isPhoneValid;
 
     const handlePromoCodeCheck = () => {
         if (!user) return;
-        checkPromo(user.email, promoCode)
-            .then(result => {
-                if (result.valid) {
-                    setPromoError('');
-                    setDiscount(result.discount);
-                    setPromoMessage(result.message);
-                } else {
-                    setPromoError('Промокод недействителен');
-                    setDiscount(0);
-                    setPromoMessage("");
-                }
-            })
-            .catch(err => {
-                setPromoError(err.message);
-            });
+        dispatch(checkPromo({ email: user.email, promocode: promoCode }));
     };
 
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        onExit();
+    };
+
+    const handleSubmit = () => {
+        setIsModalOpen(true);
+        const order: OrderCreateRequestType = {
+            items: orderItems,
+            deliveryAddress,
+            deliveryDate,
+            deliveryTime,
+            phone,
+            bonusesToUse,
+            total,
+            finalTotal: adjustedTotal,
+            email: user?.email,
+        };
+        dispatch(createOrder(order)).unwrap()
+            .then(() => {
+                onSubmit();
+            })
+    };
 
     const timeOptions = Array.from({ length: 12 }, (_, i) => {
         const hour = 9 + i;
         return `${hour.toString().padStart(2, '0')}:00`;
     });
-
-
-    const isPhoneValid = /^7\d{10}$/.test(phone);
-    const isOrderDisabled = !isAddressValid || !deliveryTime || !isPhoneValid;
 
     return (
         <div className={style.container}>
@@ -149,7 +121,7 @@ const OrderForm = ({ items, onExit, onSubmit }: OrderFormProps) => {
             <div className={style.section}>
                 <h3 className={style.section__title}>Товары:</h3>
                 <ul className={style.section__list}>
-                    {orderItems.current.map(item => (
+                    {orderItems.map(item => (
                         <li key={item.product.id} className={style.section__list__item}>
                             <span className={style.section__list__item__name}>{item.product.name}</span>
                             <span className={style.section__list__item__info}>
@@ -325,8 +297,8 @@ const OrderForm = ({ items, onExit, onSubmit }: OrderFormProps) => {
                 </div>
             </div>
 
-            {isModalOpen && orderStatus && (
-                <OrderModal status={orderStatus} onExit={handleCloseModal} />
+            {isModalOpen && status!=='idle' && (
+                <OrderModal status={status} onExit={handleCloseModal} />
             )}
         </div>
     );

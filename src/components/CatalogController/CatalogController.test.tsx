@@ -8,7 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import * as api from "../../api";
 
 const mockStore = configureStore([]);
-const store = mockStore({cart: {items: []}});
+const store = mockStore({cart: {items: [], loaded: true}});
 
 jest.mock('../../images/empty.svg', () => ({
   ReactComponent: () => <div />,
