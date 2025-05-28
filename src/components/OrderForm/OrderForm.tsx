@@ -50,14 +50,12 @@ const OrderForm = ({ items, onExit, onSubmit }: OrderFormProps) => {
         }
 
         createOrder(order)
-            .then((data) => {
+            .then(() => {
                 setOrderStatus('success');
                 onSubmit();
-                console.log(data);
             })
             .catch((e) => {
                 setOrderStatus('error');
-                console.log(e.message);
             });
     };
 

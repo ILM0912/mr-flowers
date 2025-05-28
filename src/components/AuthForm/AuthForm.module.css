@@ -44,7 +44,7 @@
   gap: 4px;
 }
 
-.form__input-group-input {
+.form__input-group__input {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;

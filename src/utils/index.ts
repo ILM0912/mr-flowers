@@ -3,14 +3,6 @@ export const formatPrice = (value: number): string => {
 	return `${formatter.format(value)} ₽`;
 };
 
-export const beautifyName = (name: string): string => {
-    return name
-        .trim()
-        .split(/\s+/)
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-        .join(" ");
-};
-
 export const parseDate = (dateString: string): Date => {
     const [day, month, year] = dateString.split('.');
     return new Date(`${year}-${month}-${day}`);
@@ -40,4 +32,9 @@ export function formatDateTime(dateString: string): string {
         minute: "2-digit",
     };
     return date.toLocaleString("ru-RU", options);
+}
+
+export function formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("ru-RU");
 }
