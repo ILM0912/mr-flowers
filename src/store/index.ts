@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import cartReducer from './CartSlice';
+import cartReducer, { saveCartMiddleware } from './CartSlice';
 import authReducer from "./AuthSlice";
 import productReducer from "./ProductSlice";
 
@@ -9,6 +9,8 @@ export const store = configureStore({
 		cart: cartReducer,
 		product: productReducer,
 	},
+	middleware: getDefaultMiddleware =>
+		getDefaultMiddleware().concat(saveCartMiddleware),
 });
 
 export default store;

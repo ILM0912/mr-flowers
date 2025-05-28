@@ -4,9 +4,8 @@ import { ReactComponent as BonusIcon } from "../../images/bonus.svg";
 import style from "./PersonalAccount.module.css";
 import { User } from "../../types";
 import { useDispatch } from "react-redux";
-import { logoutUser, refreshUser } from "../../store/AuthSlice";
+import { logoutUser, refreshUser, updateName } from "../../store/AuthSlice";
 import { AppDispatch } from "../../store";
-import { updateUserName } from "../../api";
 import AddressManager from "../AddressManager";
 import { formatPrice } from "../../utils";
 import OrdersHistory from "../OrdersHistory";
@@ -30,9 +29,8 @@ const PersonalAccount = ({ user }: PersonalAccountProps) => {
             setIsEditing(false);
             return;
         }
-        setName(name);
-        updateUserName(user.email, name)
-            .then(() => dispatch(refreshUser(user.email)))
+
+        dispatch(updateName({ email: user.email, name: name.trim() }));
         setIsEditing(false);
     };
 

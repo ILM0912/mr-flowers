@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import style from "./AddressManager.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
-import { refreshUser } from "../../store/AuthSlice";
-import { updateUserAddresses } from "../../api";
+import { refreshUser, updateAddresses } from "../../store/AuthSlice";
 
 interface AddressManagerProps {
     addresses: string[];
@@ -50,12 +49,12 @@ const AddressManager = ({ addresses, defaultAddressId }: AddressManagerProps) =>
 
     const handleSave = () => {
         if (email) {
-            updateUserAddresses(email, currentAddresses, currentDefault)
-                .then(() => {
-                    dispatch(refreshUser(email));
-                })
+            dispatch(updateAddresses({
+                email,
+                addresses: currentAddresses,
+                defaultIndex: currentDefault
+            }));
         }
-        
     };
 
     const handleCancel = () => {

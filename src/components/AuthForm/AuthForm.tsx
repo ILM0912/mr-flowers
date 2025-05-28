@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../../store/AuthSlice";
-import { loginRequest, registerRequest } from "../../api";
+import { authUser, registerUser } from "../../store/AuthSlice";
 import style from "./AuthForm.module.css"
 import { AppDispatch } from "../../store";
 
@@ -17,29 +16,18 @@ const AuthForm = () => {
         e.preventDefault();
         setError(null);
 
-        if (isRegistering) {
-            if (password !== confirmPassword) {
-                setError("Пароли не совпадают!");
-                return;
+        try {
+            if (isRegistering) {
+                if (password !== confirmPassword) {
+                    setError("Пароли не совпадают!");
+                    return;
+                }
+                await dispatch(registerUser({ email, password })).unwrap();
+            } else {
+                await dispatch(authUser({ email, password })).unwrap();
             }
-
-            registerRequest(email, password)
-                .then((response) => {
-                    const { user } = response;
-                    dispatch(loginUser(user));
-                })
-                .catch(err => {
-                    setError(err.message);
-                });
-        } else {
-            loginRequest(email, password)
-                .then((response) => {
-                    const { user } = response;
-                    dispatch(loginUser(user));
-                })
-                .catch(err => {
-                    setError(err.message);
-                });
+        } catch (err: any) {
+            setError(err.message || "Ошибка авторизации/регистрации");
         }
     };
 

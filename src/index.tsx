@@ -12,7 +12,6 @@ import CartPage from './pages/CartPage';
 import ProfilePage from './pages/ProfilePage';
 import { Provider, useDispatch } from 'react-redux';
 import store, { AppDispatch } from './store';
-import { fetchUserCart } from './api';
 import { setCart } from './store/CartSlice';
 import { refreshUser } from './store/AuthSlice';
 
@@ -22,14 +21,9 @@ const App = () => {
   useEffect(() => {
     const localCart = sessionStorage.getItem('cart');
     const userData = JSON.parse(sessionStorage.getItem('user') || '{}');
+
     if (userData.email) {
       dispatch(refreshUser(userData.email));
-      fetchUserCart(userData.email).then(data => {
-        if (data?.cart) {
-          sessionStorage.setItem('cart', JSON.stringify(data.cart));
-          dispatch(setCart(data.cart));
-        }
-      }).catch(console.warn);
     } else if (localCart) {
       dispatch(setCart(JSON.parse(localCart)));
     } else {

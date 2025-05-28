@@ -9,7 +9,7 @@
     margin: 0 auto;
     left: 0;
     right: 0;
-    top: 95.45px;
+    top: 98.25px;
     border-radius: 10px;
     z-index: 1000;
     background-color: white;
@@ -113,7 +113,7 @@
 
 @media (max-width: 600px) {
     .top {
-        top: 59px;
+        top: 61.38px;
         width: calc(90% + 15px);
         border-radius: 5px;
     }

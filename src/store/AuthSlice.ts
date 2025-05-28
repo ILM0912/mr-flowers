@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "../types";
-import { fetchUserCart, fetchUserInfo } from "../api";
-import { clearCart, mergeCart } from "./CartSlice";
+import { fetchUserCart, fetchUserInfo, loginRequest, registerRequest, updateUserAddresses, updateUserName } from "../api";
+import { clearCart, mergeCart, setCart } from "./CartSlice";
 
 const savedUser = sessionStorage.getItem("user");
 
@@ -15,14 +15,32 @@ const initialState: AuthState = {
     isAuthenticated: savedUser ? true : false,
 };
 
+export const authUser = createAsyncThunk(
+  "auth/authUser",
+  async ({ email, password }: { email: string; password: string }, { dispatch }) => {
+    const response = await loginRequest(email, password);
+    const user: User = response.user;
+    await dispatch(loginUser(user));
+    return user;
+  }
+);
+
 export const loginUser = createAsyncThunk(
 	"auth/loginUser",
 	async (user: User, { dispatch }) => {
 		sessionStorage.setItem("user", JSON.stringify(user));
-
 		const response = await fetchUserCart(user.email);
 		dispatch(mergeCart(response.cart));
+		return user;
+	}
+);
 
+export const registerUser = createAsyncThunk(
+	"auth/registerUser",
+	async ({ email, password }: { email: string; password: string }, { dispatch }) => {
+		const response = await registerRequest(email, password);
+		const { user } = response;
+		await dispatch(loginUser(user));
 		return user;
 	}
 );
@@ -37,10 +55,39 @@ export const logoutUser = createAsyncThunk(
 
 export const refreshUser = createAsyncThunk(
 	"auth/refreshUser",
-	async (email: string) => {
+	async (email: string, { dispatch }) => {
 		const user = await fetchUserInfo(email);
 		sessionStorage.setItem("user", JSON.stringify(user));
+		const response = await fetchUserCart(user.email);
+		dispatch(setCart(response.cart));
 		return user;
+	}
+);
+
+type updateAddressesData = {
+	email: string;
+	addresses: string[];
+	defaultIndex: number | null;
+}
+
+export const updateAddresses = createAsyncThunk(
+	"auth/updateAddresses",
+	async ({email, addresses, defaultIndex} : updateAddressesData, { dispatch }) => {
+		await updateUserAddresses(email, addresses, defaultIndex);
+		await dispatch(refreshUser(email));
+	}
+);
+
+type UpdateNameData = {
+	email: string;
+	name: string;
+}
+
+export const updateName = createAsyncThunk(
+	"auth/updateName",
+	async ({email, name } : UpdateNameData, { dispatch }) => {
+		await updateUserName(email, name);
+		await dispatch(refreshUser(email));
 	}
 );
 

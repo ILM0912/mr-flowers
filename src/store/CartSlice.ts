@@ -1,17 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, Middleware, isAnyOf } from '@reduxjs/toolkit';
 import { CartItemType } from '../types';
 import { updateUserCart } from '../api';
 
 const MAX_QUANTITY = 101;
-
-const saveCart = (items: CartItemType[]) => {
-	sessionStorage.setItem('cart', JSON.stringify(items));
-	const email = JSON.parse(sessionStorage.getItem("user") || "{}").email;
-	if (email) {
-		updateUserCart(email, items)
-			.catch(e =>console.warn('Ошибка при синхронизации корзины с сервером:', e));
-	}
-};
 
 export interface CartState {
 	items: CartItemType[];
@@ -20,7 +11,7 @@ export interface CartState {
 
 const initialState: CartState = {
 	items: [],
-	loaded: false
+	loaded: false,
 };
 
 const cartSlice = createSlice({
@@ -41,12 +32,10 @@ const cartSlice = createSlice({
 				const validQty = Math.max(1, Math.min(action.payload.quantity, MAX_QUANTITY));
 				state.items.push({ ...action.payload, quantity: validQty });
 			}
-			saveCart(state.items);
 		},
 
 		removeFromCart(state, action: PayloadAction<string>) {
 			state.items = state.items.filter(item => item.product.id !== action.payload);
-			saveCart(state.items);
 		},
 
 		updateQuantity(state, action: PayloadAction<{ id: string; quantity: number }>) {
@@ -59,7 +48,6 @@ const cartSlice = createSlice({
 					item.quantity = Math.min(quantity, MAX_QUANTITY);
 				}
 			}
-			saveCart(state.items);
 		},
 
 		mergeCart(state, action: PayloadAction<CartItemType[]>) {
@@ -75,15 +63,40 @@ const cartSlice = createSlice({
 				}
 			}
 			state.loaded = true;
-			saveCart(state.items);
 		},
 
 		clearCart(state) {
 			state.items = [];
-			sessionStorage.removeItem('cart');
+			state.loaded = true;
 		},
 	},
 });
 
-export const { addToCart, removeFromCart, updateQuantity, clearCart, mergeCart, setCart } = cartSlice.actions;
+export const {
+	addToCart,
+	removeFromCart,
+	updateQuantity,
+	clearCart,
+	mergeCart,
+	setCart,
+} = cartSlice.actions;
+
 export default cartSlice.reducer;
+
+export const saveCartMiddleware: Middleware = store => next => action => {
+	const result = next(action);
+
+	if (isAnyOf(addToCart,removeFromCart,updateQuantity,clearCart,mergeCart,setCart)(action)) {
+		const state = store.getState();
+		const items: CartItemType[] = state.cart.items;
+		sessionStorage.setItem('cart', JSON.stringify(items));
+		const user = JSON.parse(sessionStorage.getItem('user') || '{}');
+		if (user.email) {
+			updateUserCart(user.email, items).catch(e =>
+				console.warn('Ошибка при синхронизации корзины с сервером:', e)
+			);
+		}
+	}
+
+	return result;
+};

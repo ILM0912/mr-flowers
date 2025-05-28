@@ -7,6 +7,8 @@ import { ReactComponent as EmptyIcon } from '../../../src/images/empty.svg';
 import { ReactComponent as ErrorIcon } from '../../../src/images/error.svg';
 import { ReactComponent as LoadingIcon } from '../../../src/images/loading.svg';
 import { useSearchParams } from "react-router-dom";
+import { RootState } from "../../store";
+import { useSelector } from "react-redux";
 
 export type CatalogState = {
     sort: SortOrderTypes;
@@ -26,6 +28,12 @@ const CatalogController = () => {
 
 	const [products, setProducts] = useState<Product[]>([]);
 	const [loading, setLoading] = useState(false);
+
+    const catalogLoading = loading;
+    const cartLoading = useSelector((state : RootState) => !state.cart.loaded);
+
+    const isLoading = catalogLoading || cartLoading;
+
 	const [error, setError] = useState<string | null>(null);
 	const [categories, setCategories] = useState<string[]>(["all"]);
 
@@ -228,7 +236,7 @@ const CatalogController = () => {
 
 
             <div className={style.result}>
-                {loading ? (
+                {isLoading ? (
                     <div className={style.result__message}>
                         <LoadingIcon className={`${style.result__message__icon} ${style.result__message__icon_loading}`} />
                     </div>
