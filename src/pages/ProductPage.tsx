@@ -1,39 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ProductInfo from '../components/ProductInfo';
-import { DetailedProduct } from '../types';
-import { getDetailedProduct } from '../api';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../store';
+import { fetchDetailedProduct } from '../store/ProductSlice';
 import { refreshUser } from '../store/AuthSlice';
 
 const ProductPage = () => {
-    const { id } = useParams<{ id: string }>();
-    const [product, setProduct] = useState<DetailedProduct | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
-    
-    const user = useSelector((state: RootState) => state.auth.user);
-    const dispatch = useDispatch<AppDispatch>();
+	const { id } = useParams<{ id: string }>();
+	const dispatch = useDispatch<AppDispatch>();
+	const { selectedProduct, loading } = useSelector((state: RootState) => state.product);
+	const user = useSelector((state: RootState) => state.auth.user);
 
-    useEffect(() => {
-        if (!id) return;
+	useEffect(() => {
+		if (!id) return;
+		dispatch(fetchDetailedProduct(id));
+		if (user) dispatch(refreshUser(user.email));
+	}, [id]);
 
-        setLoading(true);
-
-        getDetailedProduct(id)
-            .then((data) => {
-                setProduct(data);
-                setLoading(false);
-                
-                if (user) dispatch(refreshUser(user.email));
-            })
-            .catch(() => {
-                setProduct(null);
-                setLoading(false);
-            });
-    }, [id]);
-
-    return <ProductInfo product={product} loading={loading} />;
+	return <ProductInfo product={selectedProduct} loading={loading} />;
 };
 
 export default ProductPage;

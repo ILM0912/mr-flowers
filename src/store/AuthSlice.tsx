@@ -17,7 +17,7 @@ const initialState: AuthState = {
 
 export const loginUser = createAsyncThunk(
 	"auth/loginUser",
-	async (user: User, { dispatch, rejectWithValue }) => {
+	async (user: User, { dispatch }) => {
 		sessionStorage.setItem("user", JSON.stringify(user));
 
 		const response = await fetchUserCart(user.email);

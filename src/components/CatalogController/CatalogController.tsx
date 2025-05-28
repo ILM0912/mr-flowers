@@ -27,7 +27,7 @@ const CatalogController = () => {
 	const [products, setProducts] = useState<Product[]>([]);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
-	const [categories, setCategories] = useState<string[]>([]);
+	const [categories, setCategories] = useState<string[]>(["all"]);
 
 	const [debouncedQuery, setDebouncedQuery] = useState(initialQuery);
 	const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(null);

@@ -44,13 +44,13 @@ const Reviews = ({ product }: ReviewsProps) => {
             )}
 
             <div className={style.reviews}>
-                {product.reviews?.length ? (
-                    product.reviews
+                {Array.isArray(product.reviews) && product.reviews.length > 0 ? (
+                    [...product.reviews]
                         .sort((a, b) => parseDate(b.date).getTime() - parseDate(a.date).getTime())
                         .map((review: Review) => (
                             <div key={review.id} className={style.reviews__item}>
                                 <div className={style.reviews__item__info}>{review.author}</div>
-                                <StarRatingBar rating={review.stars}></StarRatingBar>
+                                <StarRatingBar rating={review.stars} />
                                 <div>{review.text}</div>
                                 <div>{review.date}</div>
                             </div>
