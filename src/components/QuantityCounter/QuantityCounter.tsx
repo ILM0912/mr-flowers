@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateQuantity } from "../../store/CartSlice";
+import { updateQuantity } from "../../store/services/CartSlice";
 import style from "./QuantityCounter.module.css";
 
 interface QuantityCounterProps {

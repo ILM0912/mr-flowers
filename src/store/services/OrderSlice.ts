@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { checkPromoCode, createOrderRequest } from "../api";
-import { CartItemType, OrderCreateRequestType } from "../types";
+import { checkPromoCode, createOrderRequest } from "../../api";
+import { CartItemType, OrderCreateRequestType } from "../../types";
 
 type OrderState = {
     items: CartItemType[];

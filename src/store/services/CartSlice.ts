@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, Middleware, isAnyOf } from '@reduxjs/toolkit';
-import { CartItemType } from '../types';
-import { updateUserCart } from '../api';
+import { CartItemType } from '../../types';
+import { updateUserCart } from '../../api';
 
 const MAX_QUANTITY = 101;
 

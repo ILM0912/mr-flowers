@@ -11,9 +11,9 @@ import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
 import ProfilePage from './pages/ProfilePage';
 import { Provider, useDispatch } from 'react-redux';
-import store, { AppDispatch } from './store';
-import { setCart } from './store/CartSlice';
-import { refreshUser } from './store/AuthSlice';
+import store, { AppDispatch } from './store/store';
+import { setCart } from './store/services/CartSlice';
+import { refreshUser } from './store/services/AuthSlice';
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();

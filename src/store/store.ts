@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import cartReducer, { saveCartMiddleware } from './CartSlice';
-import authReducer from "./AuthSlice";
-import productReducer from "./ProductSlice";
-import orderReducer from "./OrderSlice";
+import cartReducer, { saveCartMiddleware } from './services/CartSlice';
+import authReducer from "./services/AuthSlice";
+import productReducer from "./services/ProductSlice";
+import orderReducer from "./services/OrderSlice";
 
 export const store = configureStore({
 	reducer: {

@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ProductInfo from '../components/ProductInfo';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../store';
-import { fetchDetailedProduct } from '../store/ProductSlice';
-import { refreshUser } from '../store/AuthSlice';
+import { AppDispatch, RootState } from '../store/store';
+import { fetchDetailedProduct } from '../store/services/ProductSlice';
+import { refreshUser } from '../store/services/AuthSlice';
 
 const ProductPage = () => {
 	const { id } = useParams<{ id: string }>();

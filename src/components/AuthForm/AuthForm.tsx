@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { authUser, registerUser } from "../../store/AuthSlice";
+import { authUser, registerUser } from "../../store/services/AuthSlice";
 import style from "./AuthForm.module.css"
-import { AppDispatch } from "../../store";
+import { AppDispatch } from "../../store/store";
 
 const AuthForm = () => {
     const [email, setEmail] = useState("");

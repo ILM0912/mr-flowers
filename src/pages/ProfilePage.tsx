@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../store";
+import { RootState } from "../store/store";
 import AuthForm from "../components/AuthForm";
 import PersonalAccount from "../components/PersonalAccount";
 

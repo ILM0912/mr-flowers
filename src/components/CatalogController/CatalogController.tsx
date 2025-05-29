@@ -7,7 +7,7 @@ import { ReactComponent as EmptyIcon } from '../../../src/images/empty.svg';
 import { ReactComponent as ErrorIcon } from '../../../src/images/error.svg';
 import { ReactComponent as LoadingIcon } from '../../../src/images/loading.svg';
 import { useSearchParams } from "react-router-dom";
-import { RootState } from "../../store";
+import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 
 export type CatalogState = {

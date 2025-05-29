@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { getDetailedProduct } from "../api";
-import { DetailedProduct } from "../types";
+import { getDetailedProduct } from "../../api";
+import { DetailedProduct } from "../../types";
 
 interface ProductState {
 	selectedProduct: DetailedProduct | null;

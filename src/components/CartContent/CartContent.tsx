@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { CartState, removeFromCart } from '../../store/CartSlice';
+import { CartState, removeFromCart } from '../../store/services/CartSlice';
 import CartItem from '../CartItem';
 import OrderForm from '../OrderForm';
 import style from './CartContent.module.css';
 import { formatPrice } from '../../utils';
 import { ReactComponent as EmptyIcon } from '../../../src/images/empty.svg';
-import { setOrderItems } from '../../store/OrderSlice';
+import { setOrderItems } from '../../store/services/OrderSlice';
 
 const CartContent = () => {
     const { items, loaded } : CartState = useSelector((state: any) => state.cart);

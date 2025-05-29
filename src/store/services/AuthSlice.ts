@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { User } from "../types";
-import { fetchUserCart, fetchUserInfo, loginRequest, registerRequest, updateUserAddresses, updateUserName } from "../api";
+import { User } from "../../types";
+import { fetchUserCart, fetchUserInfo, loginRequest, registerRequest, updateUserAddresses, updateUserName } from "../../api";
 import { clearCart, mergeCart, setCart } from "./CartSlice";
 
 const savedUser = sessionStorage.getItem("user");

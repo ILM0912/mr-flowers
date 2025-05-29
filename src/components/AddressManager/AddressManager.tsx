@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import style from "./AddressManager.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store";
-import { refreshUser, updateAddresses } from "../../store/AuthSlice";
+import { AppDispatch, RootState } from "../../store/store";
+import { refreshUser, updateAddresses } from "../../store/services/AuthSlice";
 
 interface AddressManagerProps {
     addresses: string[];

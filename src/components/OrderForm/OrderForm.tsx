@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { AppDispatch, RootState } from '../../store';
+import { AppDispatch, RootState } from '../../store/store';
 import { OrderCreateRequestType } from '../../types';
 import { formatPrice } from '../../utils';
 import { IMaskInput } from 'react-imask';
 import style from './OrderForm.module.css';
-import { checkPromo, createOrder } from '../../store/OrderSlice'; 
+import { checkPromo, createOrder } from '../../store/services/OrderSlice'; 
 import OrderModal from '../OrderModal/OrderModal';
 
 interface OrderFormProps {

@@ -4,7 +4,7 @@ import StarRatingBar from "../StarRatingBar";
 import { Review, ReviewRequestType } from "../../types";
 import { sendReview } from "../../api";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { RootState } from "../../store/store";
 
 interface ReviewFormProps {
     productId: string;

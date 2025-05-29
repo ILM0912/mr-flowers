@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { RootState } from "../../store/store";
 import { DetailedProduct, Review } from "../../types";
 import style from "./Reviews.module.css";
 import { parseDate } from "../../utils";

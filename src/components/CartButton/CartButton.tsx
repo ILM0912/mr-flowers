@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store";
-import { addToCart } from "../../store/CartSlice";
+import { RootState } from "../../store/store";
+import { addToCart } from "../../store/services/CartSlice";
 import QuantityCounter from "../QuantityCounter/QuantityCounter";
 import style from "./CartButton.module.css";
 import { Product } from "../../types";

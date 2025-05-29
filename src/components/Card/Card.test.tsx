@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import Card from "./Card";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import cartReducer from "../../store/CartSlice";
+import cartReducer from "../../store/services/CartSlice";
 import { BrowserRouter } from "react-router-dom";
 import { SortOrderTypes } from "src/types";
 
