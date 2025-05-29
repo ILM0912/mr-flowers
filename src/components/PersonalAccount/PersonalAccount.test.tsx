@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
@@ -12,7 +12,7 @@ jest.mock('../../../src/images/bonus.svg', () => ({
   ReactComponent: () => <svg />,
 }));
 
-jest.mock('../../store/AuthSlice', () => ({
+jest.mock('../../store/services/AuthSlice', () => ({
   logoutUser: () => ({ type: 'LOGOUT_USER' }),
   refreshUser: (email: string) => ({ type: 'REFRESH_USER', payload: email }),
   updateName: ({ email, name }: { email: string, name: string }) => ({
