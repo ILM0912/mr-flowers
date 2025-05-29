@@ -16,7 +16,7 @@ const CartItem = ({ item, checked, onCheck, onRemove } : CartItemProps) => {
     const { product, quantity } = item;
 
     return (
-        <li className={style.container}>
+        <li className={style.container} data-cy={`cart-item_${item.product.id}`}>
             <input
                 type="checkbox"
                 checked={checked}
@@ -41,6 +41,7 @@ const CartItem = ({ item, checked, onCheck, onRemove } : CartItemProps) => {
             </div>
             <svg
                 className={style.remove}
+                data-cy={'cart-remove'}
                 onClick={() => onRemove()}
                 viewBox="0 0 24 24"
                 fill="none"

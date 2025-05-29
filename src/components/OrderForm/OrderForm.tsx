@@ -71,14 +71,14 @@ const OrderForm = ({ onExit, onSubmit }: OrderFormProps) => {
         setAdjustedTotal(newAdjustedTotal);
         setBonusesToAccrue(bonusesAccrual);
     }, [orderItems, useBonuses, user, discount]);
-
     const deliveryAddress = user && selectedAddressIndex !== null && selectedAddressIndex >= 0
         ? user.address[selectedAddressIndex]
         : customAddress.trim();
-
+    
     const isAddressValid = deliveryAddress.trim().length >= 5;
     const isPhoneValid = /^7\d{10}$/.test(phone);
     const isOrderDisabled = !isAddressValid || !deliveryTime || !isPhoneValid;
+    console.log(isAddressValid, deliveryTime, isPhoneValid);
 
     const handlePromoCodeCheck = () => {
         if (!user) return;
@@ -288,6 +288,7 @@ const OrderForm = ({ onExit, onSubmit }: OrderFormProps) => {
                         className={style.actions__submit}
                         disabled={isOrderDisabled}
                         onClick={handleSubmit}
+                        data-cy={'checkout'}
                     >
                         Заказать за {formatPrice(adjustedTotal)}
                     </button>

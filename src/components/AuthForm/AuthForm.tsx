@@ -43,6 +43,7 @@ const AuthForm = () => {
                         type="email"
                         id="email"
                         value={email}
+                        data-cy={'email'}
                         onChange={(e) => setEmail(e.target.value)}
                         required
                         className={style["form__input-group__input"]}
@@ -54,6 +55,7 @@ const AuthForm = () => {
                         type="password"
                         id="password"
                         value={password}
+                        data-cy={'password'}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                         minLength={8}
@@ -64,23 +66,25 @@ const AuthForm = () => {
                 <div className={style["form__input-group"]}>
                     <label htmlFor="confirmPassword">Подтвердите пароль</label>
                     <input
-                    type="password"
-                    id="confirmPassword"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
-                    minLength={8}
-                    className={style["form__input-group__input"]}
+                        type="password"
+                        id="confirmPassword"
+                        value={confirmPassword}
+                        data-cy={'repeat-password'}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        required
+                        minLength={8}
+                        className={style["form__input-group__input"]}
                     />
                 </div>
                 )}
-                <button type="submit" className={style["form__submit"]}>
+                <button type="submit" data-cy={'submit'} className={style["form__submit"]}>
                     {isRegistering ? "Зарегистрироваться" : "Войти"}
                 </button>
             </form>
             {error && <div className={style.error}>{error}</div>}
             <p
                 className={style.switch}
+                data-cy={'tab'}
                 onClick={() => {
                 setIsRegistering((prev) => !prev);
                 setEmail("");

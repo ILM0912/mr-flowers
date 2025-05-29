@@ -22,7 +22,7 @@ const CartButton = ({ product } : CartButtonProps) => {
     };
 
     return (
-        <div className={style.container}>
+        <div className={style.container} data-cy={'cart-button'}>
             {quantity === 0 ? (
                 <button className={style["add-button"]} onClick={handleAdd}>В корзину</button>
             ) : (

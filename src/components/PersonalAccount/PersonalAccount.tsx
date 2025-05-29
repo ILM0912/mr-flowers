@@ -67,7 +67,7 @@ const PersonalAccount = ({ user }: PersonalAccountProps) => {
                             <EditIcon className={style["top__user-info__name-block__icon"]} onClick={handleEditClick} />
                         </div>
                     )}
-                    <div className={style["top__user-info__email"]}>{user.email.toLowerCase()}</div>
+                    <div data-cy={'profile-email'} className={style["top__user-info__email"]}>{user.email.toLowerCase()}</div>
                 </div>
                 
                 <div className={style.top__bonuses}>

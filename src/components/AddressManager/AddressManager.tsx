@@ -25,7 +25,7 @@ const AddressManager = ({ addresses, defaultAddressId }: AddressManagerProps) =>
     }, [defaultAddressId]);
 
     const handleAdd = () => {
-        if (newAddress.trim()) {
+        if (newAddress.trim().length >= 5) {
             setCurrentAddresses([...currentAddresses, newAddress.trim()]);
             setNewAddress("");
         }
@@ -120,6 +120,7 @@ const AddressManager = ({ addresses, defaultAddressId }: AddressManagerProps) =>
                 />
                 <button
                     onClick={handleAdd}
+                    onSubmit={handleAdd}
                     disabled={newAddress.trim().length < 5}
                     className={style["input-wrapper__button"]}
                 >

@@ -53,12 +53,13 @@ const QuantityCounter = ({ id, quantity }: QuantityCounterProps) => {
 
     return (
         <div className={style.container}>
-            <button className={style.button} onClick={decrement}>−</button>
+            <button className={style.button} data-cy={'quantity-decrease'} onClick={decrement}>−</button>
             <input
                 type="text"
                 value={inputValue}
                 onChange={handleChange}
                 onBlur={applyChange}
+                data-cy={'quantity'} 
                 onKeyDown={(e) => {
                     if (e.key === "Enter") {
                         applyChange();
@@ -69,7 +70,7 @@ const QuantityCounter = ({ id, quantity }: QuantityCounterProps) => {
                 inputMode="numeric"
                 pattern="[0-9]*"
             />
-            <button className={style.button} onClick={increment}>+</button>
+            <button className={style.button} data-cy={'quantity-increase'} onClick={increment}>+</button>
         </div>
     );
 };

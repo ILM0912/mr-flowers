@@ -15,10 +15,9 @@ interface CardProps {
 
 const Card = ({ product, catalogState }: CardProps) => {
     return (
-        <div className={style.container}>
+        <div className={style.container} data-cy={`product_${product.id}`}>
             <Link to={`/product/${product.id}`}
                 className={style["card-link"]}
-                data-cy={`product_${product.id}`}
                 onClick={() => {
                     sessionStorage.setItem("scrollPosition", window.scrollY.toString());
                     sessionStorage.setItem("catalogState", JSON.stringify(catalogState));
@@ -44,7 +43,7 @@ const Card = ({ product, catalogState }: CardProps) => {
                         ? [<StarActive className={style["card-link__rating__icon"]} />, product.rating.toFixed(1)]
                         : "нет отзывов"}
                 </p>
-                </Link>
+            </Link>
             <CartButton product={product}/>
         </div>
     );
