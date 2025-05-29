@@ -186,6 +186,7 @@ const CatalogController = () => {
                     <select
                         className={style.top__controls__select}
                         value={sortOrder}
+                        data-cy={'sort-select'}
                         onChange={(e) => {
                                 setSortOrder(e.target.value as SortOrderTypes);
                                 window.scrollTo(0, 0);
@@ -201,6 +202,7 @@ const CatalogController = () => {
                     <select
                         className={style.top__controls__select}
                         value={filter}
+                        data-cy={'category-select'}
                         onChange={(e) => {
                                 setFilter(e.target.value);
                                 window.scrollTo(0, 0);

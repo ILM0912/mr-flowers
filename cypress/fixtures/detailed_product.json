@@ -1,0 +1,36 @@
+{
+    "category": "Пионы",
+    "description": "Пион белый, розовый дизайнерская упаковка.",
+    "id": "74",
+    "image": "/images/74.webp",
+    "name": "Букет из 17 белых и розовых пионов",
+    "price": 10399,
+    "rating": 5,
+    "reviews": [
+        {
+            "author": "Михаил",
+            "date": "27.05.2025",
+            "email": "misha@yandex.ru",
+            "product_id": "74",
+            "stars": 5,
+            "text": "Качество на высоте, буду рекомендовать друзьям."
+        },
+        {
+            "author": "Тимофей",
+            "date": "22.05.2025",
+            "email": "tima@mail.ru",
+            "product_id": "74",
+            "stars": 5,
+            "text": "Отличное качество, был приятно удивлен."
+        },
+        {
+            "author": "Игорь",
+            "date": "09.05.2025",
+            "email": "igorek@mail.ru",
+            "product_id": "74",
+            "stars": 5,
+            "text": "Отличное качество, был приятно удивлен."
+        }
+    ],
+    "reviews_length": 3
+}

@@ -10,7 +10,7 @@ interface CatalogProps {
 
 const Catalog = ({ products, catalogState }: CatalogProps) => {
     return (
-        <div className={style.container}>
+        <div className={style.container} data-cy={"catalog"}>
             {products.map((product) => (
                 <Card key={product.id} product={product} catalogState={catalogState}/>
             ))}

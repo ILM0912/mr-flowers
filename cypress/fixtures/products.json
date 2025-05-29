@@ -1,0 +1,29 @@
+[
+    {
+        "category": "Букеты",
+        "id": "1",
+        "image": "/images/1.webp",
+        "name": "Букет \"Магический миг\"",
+        "price": 2390,
+        "rating": 0,
+        "reviews_length": 0
+    },
+    {
+        "category": "Розы",
+        "id": "41",
+        "image": "/images/41.webp",
+        "name": "Букет из 19 белых метровых роз",
+        "price": 7890,
+        "rating": 3.5,
+        "reviews_length": 2
+    },
+    {
+        "category": "Пионы",
+        "id": "74",
+        "image": "/images/74.webp",
+        "name": "Букет из 17 белых и розовых пионов",
+        "price": 10399,
+        "rating": 5,
+        "reviews_length": 3
+    }
+]

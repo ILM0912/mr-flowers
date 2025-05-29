@@ -18,6 +18,7 @@ const Card = ({ product, catalogState }: CardProps) => {
         <div className={style.container}>
             <Link to={`/product/${product.id}`}
                 className={style["card-link"]}
+                data-cy={`product_${product.id}`}
                 onClick={() => {
                     sessionStorage.setItem("scrollPosition", window.scrollY.toString());
                     sessionStorage.setItem("catalogState", JSON.stringify(catalogState));
