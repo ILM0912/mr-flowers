@@ -18,6 +18,14 @@ const ReviewForm = ({ productId }: ReviewFormProps) => {
     const email = useSelector((state: RootState) => state.auth.user!.email);
 
     const handleSubmit = () => {
+        if (text.trim().length === 0 || text.length > 1000) {
+            alert("Комментарий должен быть от 1 до 1000 символов");
+            return;
+        }
+        if (rating < 1 || rating > 5) {
+            alert("Оценка должна быть от 1 до 5");
+            return;
+        }
         setText(text.trim());
         const reviewData: ReviewRequestType = {
             productId,
@@ -67,6 +75,7 @@ const ReviewForm = ({ productId }: ReviewFormProps) => {
                             className={style.form__section__textarea}
                             placeholder="Напишите, что вам понравилось или не понравилось"
                             value={text}
+                            maxLength={1000}
                             onChange={(e) => setText(e.target.value)}
                         />
                     </div>
