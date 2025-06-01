@@ -86,7 +86,7 @@ export default cartSlice.reducer;
 export const saveCartMiddleware: Middleware = store => next => action => {
 	const result = next(action);
 
-	if (isAnyOf(addToCart,removeFromCart,updateQuantity,clearCart,mergeCart,setCart)(action)) {
+	if (isAnyOf(addToCart,removeFromCart,updateQuantity,clearCart,mergeCart)(action)) {
 		const state = store.getState();
 		const items: CartItemType[] = state.cart.items;
 		sessionStorage.setItem('cart', JSON.stringify(items));

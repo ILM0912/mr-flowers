@@ -135,7 +135,7 @@ const OrderForm = ({ onExit, onSubmit }: OrderFormProps) => {
             <div className={style.section}>
                 <h3 className={style.section__title}>Номер телефона получателя:</h3>
                 <IMaskInput
-                    className={style.section__input}
+                    className={`${style.section__input} ${isPhoneValid ? "" : style.section__input_invalid}`}
                     mask={'+{7} (000) 000 00 00'}
                     placeholder="Введите номер телефон получателя"
                     value={phone}
@@ -172,7 +172,7 @@ const OrderForm = ({ onExit, onSubmit }: OrderFormProps) => {
                     </div>
                 )}
                 <input
-                    className={style.section__input}
+                    className={`${style.section__input} ${isAddressValid ? "" : style.section__input_invalid}`}
                     type="text"
                     placeholder="Введите адрес доставки"
                     value={customAddress}
@@ -194,7 +194,7 @@ const OrderForm = ({ onExit, onSubmit }: OrderFormProps) => {
                         onChange={e => setDeliveryDate(e.target.value)}
                     />
                     <select
-                        className={style.section__input}
+                        className={`${style.section__input} ${deliveryTime ? "" : style.section__input_invalid}`}
                         value={deliveryTime}
                         onChange={e => setDeliveryTime(e.target.value)}
                     >

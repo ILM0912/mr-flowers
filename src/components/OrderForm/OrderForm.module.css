@@ -68,6 +68,10 @@
     font-size: 14px;
 }
 
+.section__input_invalid {
+    border: 2px solid red;
+}
+
 .section__datetime {
     display: flex;
     gap: 10px;

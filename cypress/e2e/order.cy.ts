@@ -38,6 +38,9 @@ describe('OrderForm', () => {
     }
 
     beforeEach(() => {
+        
+        cy.intercept('GET', '/products', { fixture: "products.json" });
+        cy.intercept('GET', '/categories', { body: ["Букеты", "Розы", "Пионы"] });
         cy.intercept('POST', '/order/create', order);
         cy.intercept('POST', '/checkPromo', { statusCode: 200, body: { discount: 10, message: 'Промокод принят' } });
         cy.intercept('POST', '/login', {
@@ -110,7 +113,7 @@ describe('OrderForm', () => {
 
         cy.get('input[type=tel]').type('7 999 123 45 67');
 
-        cy.get('input[placeholder*="адрес"]').type('ул. Независимости, 15');
+        cy.get('input[placeholder*="адрес"]').type('город Тверь, б-р Радищева');
 
         cy.get('select').select('09:00');
 

@@ -24,7 +24,7 @@ describe('Личный кабинет', () => {
                     name: 'Test',
                     bonuses: 500,
                     address: [],
-                    order: [],
+                    orders: [],
                     defaultAddress: null
                 }
             },

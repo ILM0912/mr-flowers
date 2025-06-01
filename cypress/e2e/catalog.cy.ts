@@ -3,7 +3,8 @@ describe('Каталог', () => {
         sessionStorage.clear();
         cy.intercept('GET', '/products', { fixture: "products.json" });
         cy.intercept('GET', '/categories', { body: ["Букеты", "Розы", "Пионы"] });
-
+        cy.intercept('GET', '/product/74', { fixture: "detailed_product.json" });
+        
         cy.visit('/');
     });
 

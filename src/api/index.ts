@@ -1,6 +1,6 @@
 import { CartItemType, DetailedProduct, OrderCreateRequestType, ReviewRequestType } from "../types";
 
-export const API_URL = "http://192.168.108.108:912";
+export const API_URL = "http://82.202.136.36:912";
 
 export const getProducts = async () => {
     try {
